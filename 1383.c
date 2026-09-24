@@ -10,6 +10,7 @@ Uso de IA   : Auxílio na explicação de erros
 -------------------------------------------------------------------------- */
 #include <stdio.h>
 
+
 void le_matriz(int matriz[][9]);
 void verifica_matriz(int matriz[][9], int cont);
 int verifica_linha(int linha[]);
