@@ -5,7 +5,7 @@ Linguagem   : C
 Problema    : https://judge.beecrowd.com/pt/problems/view/1062
 Data        : 07/10/2026
 Objetivo    : Organizar os vagões
-Dificuldade : 
+Dificuldade : Compreensão da implementação de Pilhas
 Uso de IA   : Estruturação do código e Compreenção de Listas Encadeadas
 -------------------------------------------------------------------------- */
 

@@ -5,7 +5,7 @@ Linguagem   : C
 Problema    : https://judge.beecrowd.com/pt/problems/view/1068
 Data        : 31/08/2026
 Objetivo    : Verificar se todos parênteses estão fechados
-Dificuldade : 
+Dificuldade : Compreensão da implementação de Pilhas
 Uso de IA   : Estruturação do código e Compreenção de Listas Encadeadas
 -------------------------------------------------------------------------- */
 
