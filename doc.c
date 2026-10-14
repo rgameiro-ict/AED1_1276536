@@ -1,5 +1,102 @@
 ﻿/* ALGORITMOS DE LISTAS, ÁRVORES, GRAFOS, BUSCAS E ORDENAÇÕES PADRÕES PARA CONSULTA  */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// PILHAS
+
+typedef struct cel{
+    int valor;
+    struct cel *seg;
+} celula;
+
+typedef struct Pilha{
+    celula *topo;
+}Pilha;
+
+void inicializar(Pilha *P){
+    P->topo = NULL;
+}
+
+int vazia(Pilha *P){
+    if (P->topo == NULL){
+        return 1;
+    }
+    return 0;
+}
+
+void push(Pilha *P, int v){
+    celula *nova = malloc(sizeof(celula));
+    nova->valor = v;
+    nova->seg = P->topo;
+    P->topo = nova;
+}
+
+int pop(Pilha *P){
+    if (vazia(P)){
+        printf("Está vazia");
+        return;
+    }
+    else{
+        int v_topo = P->topo->valor;
+        celula *temp = P->topo;
+        P->topo = P->topo->seg;
+        free(temp);
+        return v_topo;
+    }
+}
+
+void clear(Pilha *P){
+    while(!vazia(P)){
+        celula *temp = P->topo;
+        P->topo = P->topo->seg;
+        free(temp);
+    }
+}
+
+
+
+
+// FILA
+
+typedef struct celula{
+    int valor;
+    struct celula *seg
+}celula;
+
+typedef struct Fila{
+    celula *inicio;
+    celula *fim;
+}Fila;
+
+void inicializar(Fila *F){
+    F->inicio = NULL;
+    F->fim = NULL;
+}
+
+int vazia(Fila *F){
+    if (F->fim == NULL){
+        return 1;
+    }
+    return 0;
+}
+
+void enfileirar(Fila *F, int v){
+
+}
+
+int desenfileirar(Fila *F){
+
+}
+
+void clear(Fila *F){
+
+}
+
+
+
+
 // QUICK SORT
 int Separa (int p, int r, int v[]) {
     int c, j, k, t;
@@ -56,6 +153,4 @@ void Mergesort (int p, int r, int v[]) {
         Intercala (p, q, r, v);
     }
 }
-
-// PILHAS
 
