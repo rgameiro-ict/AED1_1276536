@@ -19,72 +19,81 @@ typedef struct cel{
     struct cel *seg;
 }celula;
 
-typedef struct Fila{
-    celula *inicio;
-    celula *fim;
-}Fila;
+typedef struct Lista{
+    celula *cabeca;
+}Lista;
 
-void inicializar(Fila *F){
-    F->inicio = NULL;
-    F->fim = NULL;
+void inicializar(Lista *L, int N){
+    L->cabeca = malloc(sizeof(celula));
+    L->cabeca->seg = NULL;
+    for(int i=1; i<=N; i++){
+        inserir(L, i);
+    }
 }
 
-int vazia(Fila *F){
-    if (F->inicio == NULL){
+int vazia(Lista *L){
+    if (L->cabeca->seg == NULL){
         return 1;
     }
     return 0;
 }
 
-void enfileirar(Fila *F, int v){
+void inserir(Lista *L, int v){
     celula *nova = malloc(sizeof(celula));
     nova->valor = v;
     nova->seg = NULL;
-    if (vazia(F)){
-        F->inicio = nova;
-        F->fim = nova;
+    celula *temp = L->cabeca;
+    while(temp->seg != NULL){
+        temp = temp->seg;
     }
-    else{
-        F->fim->seg = nova;
-        F->fim = nova;
-    }
+    temp->seg = nova;
 }
 
-int desenfileirar(Fila *F){
-    if (vazia(F)){
-        printf("Eatá vazia");
+int remover(Lista *L){
+    if (vazia(L)){
         return -1;
     }
     else{
-        int v_inicio = F->inicio->valor;
-        celula *temp = F->inicio;
-        F->inicio = F->inicio->seg;
-        if (F->inicio->valor == NULL){
-            F->fim = NULL;
-        }
+        int v_inicio = L->cabeca->seg->valor;
+        celula *temp = L->cabeca->seg;
+        L->cabeca->seg = temp->seg;
         free(temp);
         return v_inicio;
     }
+    
 }
 
-void clear(Fila *F){
-    while(!vazia(F)){
-        celula *temp = F->inicio;
-        F->inicio = F->inicio->seg;
+void clear(Lista *L){
+    while (!vazia(L)){
+        celula *temp = L->cabeca->seg;
+        L->cabeca->seg = temp->seg;
         free(temp);
     }
-    F->fim = NULL;
 }
 
 // Corpo Principal
 
 int main(){
     int N;
-    Fila F;
-
-
-
-
+    Lista L;
+    while(scanf("%d", &N) == 1 && N != 0){
+        inicializar(&L, N);
+        printf("Discarded cards: ");
+        int primeiro = 1;
+        for(int i=1; i<=N-1; i++){
+            int carta_descartada = remover(&L);
+            if (primeiro){
+                printf("%d", carta_descartada);
+                primeiro = 0;
+            }
+            else {
+                printf(", %d", carta_descartada);
+            }
+            inserir(&L, remover(&L));
+        }
+        printf("\nRemaining card: %d\n", remover(&L));
+        clear(&L);
+    }
 
     return 0;
 }
