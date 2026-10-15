@@ -63,6 +63,8 @@ void clear(Pilha *P){
     }
 }
 
+// Corpo Principal
+
 int main(){
     char str[1002];
     Pilha P;

@@ -4,7 +4,10 @@
 #include <stdlib.h>
 #include <string.h>
 
-// PILHAS
+
+//----------------------------------- ~~~ LISTAS ENCADEADAS ~~~ -----------------------------------------------
+
+// -------------------------- PILHAS --------------------------
 
 typedef struct cel{
     int valor;
@@ -36,7 +39,7 @@ void push(Pilha *P, int v){
 int pop(Pilha *P){
     if (vazia(P)){
         printf("Está vazia");
-        return;
+        return -1;
     }
     else{
         int v_topo = P->topo->valor;
@@ -58,11 +61,11 @@ void clear(Pilha *P){
 
 
 
-// FILA
+// -------------------------- FILA --------------------------
 
 typedef struct celula{
     int valor;
-    struct celula *seg
+    struct celula *seg;
 }celula;
 
 typedef struct Fila{
@@ -76,25 +79,106 @@ void inicializar(Fila *F){
 }
 
 int vazia(Fila *F){
-    if (F->fim == NULL){
+    if (F->inicio == NULL){
         return 1;
     }
     return 0;
 }
 
-void enfileirar(Fila *F, int v){
-
+void inserir(Fila *F, int v){
+    celula *nova = malloc(sizeof(celula));
+    nova->valor = v;
+    nova->seg = NULL;
+    if (vazia(F)){
+        F->inicio = nova;
+        F->fim = nova;
+    }
+    else{
+        F->fim->seg = nova;
+        F->fim = nova;
+    }
 }
 
-int desenfileirar(Fila *F){
-
+int remover(Fila *F){
+    if (vazia(F)){
+        printf("Está vazia");
+        return -1;
+    }
+    else{
+        int v_inicio = F->inicio->valor;
+        celula *temp = F->inicio;
+        F->inicio = F->inicio->seg;
+        if (F->inicio == NULL){
+            F->fim = NULL;
+        }
+        free(temp);
+        return v_inicio;
+    }
 }
 
 void clear(Fila *F){
+    while(!vazia(F)){
+        celula *temp = F->inicio;
+        F->inicio = F->inicio->seg;
+        free(temp);
+    }
+    F->fim = NULL;
+}
 
+//-------------------------- LISTA ENCADEADA --------------------------
+
+typedef struct celula{
+    int valor;
+    celula *seg;
+}celula;
+
+typedef struct Lista{
+    celula *cabeca;
+}Lista;
+
+void inicializar(Lista *L){
+    L->cabeca = malloc(sizeof(celula));
+    L->cabeca->seg = NULL;
+}
+
+int vazia(Lista *L){
+    if (L->cabeca->seg == NULL){
+        return 1;
+    }
+    return 0;
+}
+
+void inserir(Lista *L, int v){
+    celula *nova = malloc(sizeof(celula));
+    nova->valor = v;
+    nova->seg = L->cabeca->seg;
+    L->cabeca->seg = nova;
+}
+
+int remover(Lista *L){
+    if (vazia(L)){
+        printf("Está vazia");
+        return -1;
+    }
+    else{
+        int v_inicio = L->cabeca->seg->valor;
+        celula *temp = L->cabeca->seg;
+        L->cabeca->seg = temp->seg;
+        free(temp);
+        return v_inicio;
+    }
+}
+
+void clear(Lista *L){
+    while(!vazia(L)){
+        celula *temp = L->cabeca->seg;
+        L->cabeca->seg = temp->seg;
+        free(temp);
+    }
 }
 
 
+//-------------------------------------- ~~~ ORDENAÇÃO ~~~ -----------------------------------------------
 
 
 // QUICK SORT

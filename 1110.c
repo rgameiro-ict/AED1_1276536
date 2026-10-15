@@ -12,98 +12,79 @@ Uso de IA   : Aprendizado de implementação de Listas Encadeadas: Sintaxe e Est
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct Node {
-    int dado;
-    struct Node* proximo;
-} Node;
+// Definir Lista Encadeada
 
-typedef struct Fila {
-    Node* inicio;
-    Node* fim;
-    int tamanho;
-} Fila;
+typedef struct cel{
+    int valor;
+    struct cel *seg;
+}celula;
 
-Fila* criaFila(){
-    Fila* f = (Fila*) malloc(sizeof(Fila));
-    f->inicio = f->fim = NULL;
-    f->tamanho = 0;
-    return f;
+typedef struct Fila{
+    celula *inicio;
+    celula *fim;
+}Fila;
+
+void inicializar(Fila *F){
+    F->inicio = NULL;
+    F->fim = NULL;
 }
 
-int estavazia(Fila* f){
-    return f->inicio == NULL;
+int vazia(Fila *F){
+    if (F->inicio == NULL){
+        return 1;
+    }
+    return 0;
 }
 
-void enfileirar(Fila* f, int valor){
-    Node* novoNode = (Node*) malloc(sizeof(Node));
-    novoNode->dado = valor;
-    novoNode->proximo = NULL;
-
-    if (f->fim == NULL){
-        f->inicio = f->fim = novoNode;
+void enfileirar(Fila *F, int v){
+    celula *nova = malloc(sizeof(celula));
+    nova->valor = v;
+    nova->seg = NULL;
+    if (vazia(F)){
+        F->inicio = nova;
+        F->fim = nova;
     }
     else{
-        f->fim->proximo = novoNode;
-        f->fim = novoNode;
+        F->fim->seg = nova;
+        F->fim = nova;
     }
-    f->tamanho++;
 }
 
-int desenfileirar(Fila* f){
-    if (estavazia(f)){
+int desenfileirar(Fila *F){
+    if (vazia(F)){
+        printf("Eatá vazia");
         return -1;
     }
-
-    Node* temp = f->inicio;
-    int valor = temp->dado;
-    
-    f->inicio = f->inicio->proximo;
-    if (f->inicio == NULL){
-        f->fim = NULL;
+    else{
+        int v_inicio = F->inicio->valor;
+        celula *temp = F->inicio;
+        F->inicio = F->inicio->seg;
+        if (F->inicio->valor == NULL){
+            F->fim = NULL;
+        }
+        free(temp);
+        return v_inicio;
     }
-
-    free(temp);
-    f->tamanho--;
-    return valor;
 }
 
-void liberarFila(Fila* f){
-    while (!estavazia(f)){
-        desenfileirar(f);
+void clear(Fila *F){
+    while(!vazia(F)){
+        celula *temp = F->inicio;
+        F->inicio = F->inicio->seg;
+        free(temp);
     }
-    free(f);
+    F->fim = NULL;
 }
+
+// Corpo Principal
 
 int main(){
-    int n;
+    int N;
+    Fila F;
 
-    while(scanf("%d", &n) == 1 && n!= 0){
-        Fila* f = criaFila();
 
-        for (int i=1; i<=n; i++){
-            enfileirar(f, i);
-        }
 
-        printf("Discarded cards:");
-        int primeiroDescarte = 1;
 
-        while(f->tamanho > 1){
-            int descartada = desenfileirar(f);
-            if (primeiroDescarte == 1){
-                printf(" %d", descartada);
-                primeiroDescarte = 0;
-            }
-            else{
-                printf(", %d", descartada);
-            }
-
-            int movida = desenfileirar(f);
-            enfileirar(f, movida);
-        }
-
-        printf("\nRemaining card: %d\n", desenfileirar(f));
-        liberarFila(f);
-    }
 
     return 0;
 }
