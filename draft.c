@@ -58,7 +58,7 @@ void clear(Pilha *P){
 
 typedef struct celula{
     int valor;
-    celula *seg;
+    struct celula *seg;
 }celula;
 
 typedef struct Fila{
@@ -123,7 +123,7 @@ void clear(Fila *F){
 
 typedef struct celula{
     int valor;
-    celula *seg;
+    struct celula *seg;
 }celula;
 
 typedef struct Lista{
@@ -185,10 +185,10 @@ int busca_binaria(int v[], int t, int x){
         if (v[meio] == x){
             return meio;
         }
-        if (x < meio){
+        if (x < v[meio]){
             fim = meio-1;
         } 
-        if (x > meio){
+        if (x > v[meio]){
             inicio = meio + 1;
         }
     }

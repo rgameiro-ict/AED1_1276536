@@ -45,7 +45,7 @@ int pop(Pilha *P){
     else{
         int v_topo = P->topo->valor;
         celula *temp = P->topo;
-        P->topo = P->topo->seg;
+        P->topo = temp->seg;
         free(temp);
         return v_topo;
     }
@@ -54,7 +54,7 @@ int pop(Pilha *P){
 void clear(Pilha *P){
     while(!vazia(P)){
         celula *temp = P->topo;
-        P->topo = P->topo->seg;
+        P->topo = temp->seg;
         free(temp);
     }
 }
@@ -105,7 +105,7 @@ int remover(Fila *F){
     else{
         int v_inicio = F->inicio->valor;
         celula *temp = F->inicio;
-        F->inicio = F->inicio->seg;
+        F->inicio = temp->seg;
         if (F->inicio == NULL){
             F->fim = NULL;
         }
@@ -117,7 +117,7 @@ int remover(Fila *F){
 void clear(Fila *F){
     while(!vazia(F)){
         celula *temp = F->inicio;
-        F->inicio = F->inicio->seg;
+        F->inicio = temp->seg;
         free(temp);
     }
     F->fim = NULL;
@@ -127,7 +127,7 @@ void clear(Fila *F){
 
 typedef struct celula{
     int valor;
-    celula *seg;
+    struct celula *seg;
 }celula;
 
 typedef struct Lista{
