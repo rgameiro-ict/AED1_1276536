@@ -14,9 +14,9 @@ Uso de IA   : Aprendizado de implementação de Listas Encadeadas: Sintaxe e Est
 
 // Definir Lista Encadeada
 
-typedef struct cel{
+typedef struct celula{
     int valor;
-    struct cel *seg;
+    struct celula *seg;
 }celula;
 
 typedef struct Lista{

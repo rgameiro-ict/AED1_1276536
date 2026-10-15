@@ -10,9 +10,9 @@
 
 // -------------------------- PILHAS --------------------------
 
-typedef struct cel{
+typedef struct celula{
     int valor;
-    struct cel *seg;
+    struct celula *seg;
 } celula;
 
 typedef struct Pilha{

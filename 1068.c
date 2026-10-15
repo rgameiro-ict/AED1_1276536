@@ -15,9 +15,9 @@ Uso de IA   : Estruturação do código e Compreenção de Listas Encadeadas
 
 // Definir a Pilha
 
-typedef struct cel{
+typedef struct celula{
     char letra;
-    struct cel *seg;
+    struct celula *seg;
 }celula;
 
 typedef struct Pilha{
