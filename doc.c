@@ -8,6 +8,8 @@
 //------------------------------------- ~~~ LISTAS ENCADEADAS ~~~ -------------------------------------
 
 
+
+
 // -------------------------- PILHAS --------------------------
 
 typedef struct celula{
@@ -178,8 +180,54 @@ void clear(Lista *L){
 
 //-------------------------- ÁRVORES --------------------------
 
+typedef struct No{
+    int valor;
+    struct No *esq;
+    struct No *dir;
+}No;
+
+No* criarNo(int v){
+    No *novo = malloc(sizeof(No));
+    novo->esq = NULL;
+    novo->dir = NULL;
+    novo->valor = v;
+    return novo;
+}
+
+void inserir_arvore(No *raiz, int v){
+    if (v < raiz->valor && raiz->esq->valor == NULL){
+        raiz->esq = criarNo(v);
+        return;
+    }
+    if (v > raiz->valor && raiz->dir->valor == NULL){
+        raiz->dir = criarNo(v);
+        return;
+    }
+    else{
+        if (v < raiz->valor){
+            inserir_arvore(raiz->esq, v);
+        }
+        else{
+            inserir_arvore(raiz->dir, v);
+        }
+    }
+}
+
+void print_arvore(No* raiz){
+    if(raiz != NULL){
+        print_arvore(raiz->esq);
+        printf("Conteudo: %d\n", raiz->valor);
+        print_arvore(raiz->dir);
+    }
+}
 
 
+//--------------------------- GRAFOS --------------------------
+
+// Representação como MATRIZ
+
+
+// Representação como LISTA ENCADEADA
 
 
 //------------------------------------- ~~~ ORDENAÇÃO ~~~ -------------------------------------

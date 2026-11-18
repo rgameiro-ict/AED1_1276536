@@ -22,31 +22,6 @@ typedef struct No{
     struct No* dir;
 }No;
 
-No* criar_no(int val);
-void inserir_arvore(No* raiz, int val);
-void print_arvore(No* raiz);
-
-
-int main(){
-    int tam;
-    scanf("%d", &tam);
-    int vetor[tam];
-
-    for(int j = 0; j < tam; j++){
-        scanf("%d", &vetor[j]);
-    }
-
-    No* raiz = criar_no(vetor[0]);
-
-    for(int j = 1; j < tam; j++){
-        inserir_arvore(raiz, vetor[j]);
-    }
-
-    print_arvore(raiz);
-
-    return 0;
-}
-
 No* criar_no(int val){
     No* novo = malloc(sizeof(No));
     novo->dir = NULL;
@@ -78,3 +53,25 @@ void print_arvore(No* raiz){
         print_arvore(raiz->dir);
     }
 }
+
+
+int main(){
+    int tam;
+    scanf("%d", &tam);
+    int vetor[tam];
+
+    for(int j = 0; j < tam; j++){
+        scanf("%d", &vetor[j]);
+    }
+
+    No* raiz = criar_no(vetor[0]);
+
+    for(int j = 1; j < tam; j++){
+        inserir_arvore(raiz, vetor[j]);
+    }
+
+    print_arvore(raiz);
+
+    return 0;
+}
+
