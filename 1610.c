@@ -4,7 +4,7 @@ Nome        : Rafael do Couto Gameiro
 Linguagem   : C
 Problema    : https://judge.beecrowd.com/pt/problems/view/1610
 Data        : 21/08/2026
-Objetivo    : Contabilizar total de cada cobaia animal e porcentagem
+Objetivo    : Verificar se há loop
 Dificuldade : Nenhum
 Uso de IA   : Auxílio na explicação de erros
 -------------------------------------------------------------------------- */
